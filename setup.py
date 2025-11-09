@@ -19,7 +19,8 @@ name = "ml_project",
 version = "0.0.1",
 author = "Aakarsh",
 author_email = "aakarsh612@gmail.com",
-packages = find_packages(),
+packages = find_packages(where="src"),
+package_dir = {"": "src"},
 install_requires = get_requirements("requirements.txt")
 
 )

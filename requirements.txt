@@ -3,3 +3,7 @@ pandas
 scikit-learn
 matplotlib
 seaborn
+python-dotenv
+mysql-connector-python
+pymysql
+# -e .
