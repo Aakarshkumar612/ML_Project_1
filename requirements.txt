@@ -7,3 +7,5 @@ python-dotenv
 mysql-connector-python
 pymysql
 # -e .
+catboost
+xgboost
