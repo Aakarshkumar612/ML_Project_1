@@ -10,3 +10,7 @@ pymysql
 catboost
 xgboost
 mlflow
+streamlit>=1.28.0
+plotly>=5.17.0
+shap>=0.42.0
+streamlit-lottie>=0.0.5
