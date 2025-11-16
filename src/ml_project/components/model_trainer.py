@@ -20,8 +20,9 @@ from src.ml_project.utils import save_object, evaluate_models
 
 from src.ml_project.exception import CustomException
 from src.ml_project.logger import logging
-
-
+import pandas as pd
+import numpy as np
+from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
 @dataclass
 class ModelTrainerConfig:
     trained_model_file_path = os.path.join("artifacts", "model.pkl")
@@ -29,7 +30,14 @@ class ModelTrainerConfig:
 class ModelTrainer:
     def __init__(self):
         self.model_trainer_config = ModelTrainerConfig()
-        
+    
+    
+    def eval_metrics(self, actual, pred):
+        rmse = np.sqrt(mean_squared_error(actual, pred))
+        mae = mean_absolute_error(actual, pred)
+        r2 = r2_score(actual, pred)
+        return rmse, mae, r2 
+       
     def initiate_model_trainer(self, train_array, test_array):
         try:
             logging.info("Splitting training and test input data")
@@ -102,6 +110,19 @@ class ModelTrainer:
             ]
             best_model = models[best_model_name]
             
+            print("This is the best model:")
+            print(best_model_name)
+            
+            model_name=list(params.keys())
+            
+            actual_model=""
+            
+            for model in model_name:
+                if best_model_name==model:
+                    actual_model=actual_model+model
+                    
+            best_params=params[actual_model]
+       
             if best_model_score < 0.6:
                 raise CustomException("No best model found")
             logging.info(f"Best model found on both training and testing dataset")
@@ -117,4 +138,5 @@ class ModelTrainer:
             return r2_square    
  
         except Exception as e:
-            raise CustomException(e, sys)    
+            raise CustomException(e, sys)  
+          
